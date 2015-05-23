@@ -1,0 +1,23 @@
+[package]
+name="SpaceColony"
+version="1.0.0"
+authors=["Rahix", "Offdroid"]
+
+[[bin]]
+name="space-colony"
+
+[dependencies.piston]
+git = "https://github.com/PistonDevelopers/piston.git"
+
+[dependencies.piston2d-graphics]
+git = "https://github.com/PistonDevelopers/graphics.git"
+
+[dependencies.pistoncore-glutin_window]
+git = "https://github.com/PistonDevelopers/glutin_window.git"
+
+[dependencies.piston2d-opengl_graphics]
+git = "https://github.com/PistonDevelopers/opengl_graphics.git"
+
+[dependencies]
+toml = "0.1.20"
+rustc-serialize = "0.3.14"

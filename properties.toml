@@ -1,0 +1,7 @@
+[SpaceColony]
+Name="Space Colony"
+Icon="./res/icon.png"
+
+[Resources]
+Path="./res/"
+ResInfo="res.toml"

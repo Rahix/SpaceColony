@@ -1,0 +1,79 @@
+// The main file containing the entry point of the program
+extern crate piston;
+extern crate graphics;
+extern crate glutin_window;
+extern crate opengl_graphics;
+extern crate toml;
+
+use piston::window::WindowSettings;
+use piston::event::*;
+use glutin_window::GlutinWindow as Window;
+use opengl_graphics::{ GlGraphics, OpenGL, Texture };
+use graphics::rectangle;
+use std::path::Path;
+//use graphics::{Image, clear, default_draw_state};
+
+pub struct App {
+    gl: GlGraphics, // OpenGL drawing backend.
+    texture: Texture,
+}
+
+impl App {
+    fn new(gl: GlGraphics, texture: Texture) -> App
+    {
+        let mut app = App{
+            gl: gl,
+            texture: texture,
+        };
+        app
+    }
+    fn render(&mut self, args: &RenderArgs) {
+        use graphics::*;
+
+        const BACKGROUND: [f32; 4] = [0.1, 0.1, 0.1, 1.0];
+
+        let mut image=Image::new();
+        image.rectangle = Some(rectangle::square(100.0, 100.0, 256.0));
+        image.source_rectangle = Some([0,0,256,256]);
+        let ref mut texture = self.texture;
+
+        self.gl.draw(args.viewport(), |c, gl| {
+            // Clear the screen.
+            clear(BACKGROUND, gl);
+
+            let transform = c.transform;
+            image.draw(texture, default_draw_state(), transform, gl);
+        });
+    }
+
+    fn update(&mut self, args: &UpdateArgs) {
+    }
+}
+
+fn main() {
+    let opengl = OpenGL::_3_2;
+
+    // Create an Glutin window.
+    let window = Window::new(
+        opengl,
+        WindowSettings::new(
+            "Space Colony",
+            [400, 400]
+        )
+        .exit_on_esc(true)
+    );
+
+    // Create a new game and run it.
+    let tex = Texture::from_path(Path::new("res/Tilesets/Planets.png")).unwrap();
+    let mut app = App::new(GlGraphics::new(opengl),tex);
+
+    for e in window.events() {
+        if let Some(r) = e.render_args() {
+            app.render(&r);
+        }
+
+        if let Some(u) = e.update_args() {
+            app.update(&u);
+        }
+    }
+}
