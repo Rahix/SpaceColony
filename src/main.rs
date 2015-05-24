@@ -6,10 +6,10 @@ extern crate opengl_graphics;
 extern crate toml;
 extern crate rustc_serialize;
 
-mod propertyreader;
+mod tomlreader;
 mod gamestate;
 
-use propertyreader::PropertiesLoader;
+use tomlreader::TomlReader;
 use gamestate::gamestate::{ChangeAction, states, GameState};
 
 
@@ -23,7 +23,7 @@ fn action_2() {
 
 fn main() {
     // Some code
-    let mut props = PropertiesLoader::new();
+    let mut props = TomlReader::new("properties.toml");
     println!("Loading Properies . . .");
     println!("Check: ResInfo = {}", props.get_value::<String>("Resources.ResInfo").unwrap());
     let mut gs = GameState::new();

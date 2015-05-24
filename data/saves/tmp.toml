@@ -1,0 +1,24 @@
+[sun]
+name="SUN"
+sprite="p1"
+
+[planets]
+num = 3
+
+[[planet]]
+name="A"
+sprite="p7"
+orbit_radius=2
+rotation=60
+
+[[planet]]
+name="B"
+sprite="p9"
+orbit_radius="3"
+rotation=20
+
+[[planet]]
+name="C"
+sprite="p2"
+orbit_radius=5
+rotation=300
