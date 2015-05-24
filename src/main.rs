@@ -8,9 +8,11 @@ extern crate rustc_serialize;
 
 mod tomlreader;
 mod gamestate;
+mod map;
 
 use tomlreader::TomlReader;
 use gamestate::gamestate::{ChangeAction, states, GameState};
+use map::SpaceColonyMap;
 
 
 fn action_1() {
@@ -34,4 +36,8 @@ fn main() {
     println!("Changing state");
     gs.trigger_state_change(states::INITIALIZING);
     gs.trigger_state_change(states::MAIN_MENU);
+    let mut map = SpaceColonyMap::new("tmp".to_string());
+    println!("Numplanets: {}", map.getnumplanets().to_string());
+    let data = map.getdata::<i32>(1, "orbit_radius").unwrap();
+    println!("Orbit[1]: {}", data.to_string());
 }
